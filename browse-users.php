@@ -113,9 +113,9 @@
 					?>
 					<tr>
 						<td><?php echo $s;?></td>
-						<td><?php echo utf8_encode($val['FirstName']);?></td>
-						<td><?php echo utf8_encode($val['LastName']);?></td>
-						<td><?php echo utf8_encode($val['CustomerPhone']);?></td>
+						<td><?php echo utf8_decode($val['FirstName']);?></td>
+						<td><?php echo utf8_decode($val['LastName']);?></td>
+						<td><?php echo utf8_decode($val['CustomerPhone']);?></td>
 						<td align="center">
 							<a href="edit-users.php?editId=<?php echo $val['Id'];?>" class="text-primary"><i class="fa fa-fw fa-edit"></i> Editar</a> | 
 							<a href="endorsement.php?ParentId=<?php echo $val['Id'];?>" class="text-primary"><i class="fas fa-users"></i> Aval</a> | 

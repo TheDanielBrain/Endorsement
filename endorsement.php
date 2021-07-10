@@ -15,13 +15,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 		header('location:'.$_SERVER['PHP_SELF'].'?msg=un&editId='.$_REQUEST['editId']);
 		exit;
 	} elseif ($aLastName=="" && $bLastName) {
-
 		header('location:'.$_SERVER['PHP_SELF'].'?msg=ue&editId='.$_REQUEST['editId']);
-
-		exit;
-
-	}elseif($aCustomerPhone=="" && $bCustomerPhone){
-		header('location:'.$_SERVER['PHP_SELF'].'?msg=up&editId='.$_REQUEST['editId']);
 		exit;
 	}
 
@@ -110,10 +104,6 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="ue"){
 
 			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Los apellidos son obligatorios</div>';
-
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="up"){
-
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> El telefono del cliente es obligatorio</div>';
 
 		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="ras"){
 

@@ -9,27 +9,25 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit'] != "") {
 	}elseif($LastName==""){
 		header('location:'.$_SERVER['PHP_SELF'].'?msg=ue');
 		exit;
-	} elseif ($CustomerPhone=="") {
-		header('location:'.$_SERVER['PHP_SELF'].'?msg=up');
-		exit;
 	} else {
 
 		$data = array(
-			'FirstName'=>utf8_decode($FirstName),
-			'LastName'=>utf8_decode($LastName),
-			'CustomerPhone'=>utf8_decode($CustomerPhone),
-			'Address'=>utf8_decode($Address),
-			'BetweenStreet1'=>utf8_decode($BetweenStreet1),
-			'BetweenStreet2'=>utf8_decode($BetweenStreet2),
+			'FirstName'=>utf8_encode($FirstName),
+			'LastName'=>utf8_encode($LastName),
+			'CustomerPhone'=>utf8_encode($CustomerPhone),
+			'Address'=>utf8_encode($Address),
+			'BetweenStreet1'=>utf8_encode($BetweenStreet1),
+			'BetweenStreet2'=>utf8_encode($BetweenStreet2),
 			'OwnHouse'=>$OwnHouse,
-			'Occupation'=>utf8_decode($Occupation),
-			'Enterprise'=>utf8_decode($Enterprise),
-			'Area'=>utf8_decode($Area),
-			'WorkPhone'=>utf8_decode($WorkPhone),
-			'WorkAddress'=>utf8_decode($WorkAddress),
+			'Occupation'=>utf8_encode($Occupation),
+			'Enterprise'=>utf8_encode($Enterprise),
+			'Area'=>utf8_encode($Area),
+			'WorkPhone'=>utf8_encode($WorkPhone),
+			'WorkAddress'=>utf8_encode($WorkAddress),
 			'CivilStatus'=>$CivilStatus,
-			'Spouse'=>utf8_decode($Spouse),
-			'SpousePhone'=>utf8_decode($SpousePhone)
+			'Spouse'=>utf8_encode($Spouse),
+			'SpousePhone'=>utf8_encode($SpousePhone),
+			'Folio'=>$Folio
 		);
 
 		$insert	= $db->insert('customers', $data);
@@ -64,28 +62,20 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit'] != "") {
 
 		if(isset($_REQUEST['msg']) and $_REQUEST['msg']=="un"){
 
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> User name is mandatory field!</div>';
+			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> El nombre es obligatorio!</div>';
 
 		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="ue"){
 
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> User email is mandatory field!</div>';
-
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="up"){
-
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> User phone is mandatory field!</div>';
+			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Los apellidos son obligatorios</div>';
 
 		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="ras"){
 
-			echo	'<div class="alert alert-success"><i class="fa fa-thumbs-up"></i> Record added successfully!</div>';
+			echo	'<div class="alert alert-success"><i class="fa fa-thumbs-up"></i> Registro agregado con exito!</div>';
 
 		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="rna"){
 
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Record not added <strong>Please try again!</strong></div>';
-
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="dsd"){
-
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Please delete a user and then try again <strong>We set limit for security reasons!</strong></div>';
-
+			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Registro no agregado <strong>Fsvor de intentar nuevamente</strong></div>';
+		
 		}
 
 		?>
@@ -186,6 +176,10 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit'] != "") {
 							<div class="form-group col-md-3">
 								<label>Telefono de conyuge </label>
 								<input type="tel" class="tel form-control" name="SpousePhone" id="SpousePhone" x-autocompletetype="tel" placeholder="Ingresar telefono de conyuge">
+							</div>
+							<div class="form-group col-md-3">
+								<label>Folio </label>
+								<input type="tel" class="tel form-control" name="Folio" id="Folio" x-autocompletetype="tel" placeholder="Ingresar folio" required>
 							</div>
 						</div>
 						<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus-circle"></i> Guardar</button>

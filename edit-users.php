@@ -11,32 +11,27 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 		header('location:'.$_SERVER['PHP_SELF'].'?msg=un&editId='.$_REQUEST['editId']);
 		exit;
 	} elseif ($LastName=="") {
-
 		header('location:'.$_SERVER['PHP_SELF'].'?msg=ue&editId='.$_REQUEST['editId']);
-
-		exit;
-
-	}elseif($CustomerPhone==""){
-		header('location:'.$_SERVER['PHP_SELF'].'?msg=up&editId='.$_REQUEST['editId']);
 		exit;
 	}
 
 	$data = array(
-		'FirstName'=>$FirstName,
-		'LastName'=>$LastName,
-		'CustomerPhone'=>$CustomerPhone,
-		'Address'=>$Address,
-		'BetweenStreet1'=>$BetweenStreet1,
-		'BetweenStreet2'=>$BetweenStreet2,
+		'FirstName'=>utf8_encode($FirstName),
+		'LastName'=>utf8_encode($LastName),
+		'CustomerPhone'=>utf8_encode($CustomerPhone),
+		'Address'=>utf8_encode($Address),
+		'BetweenStreet1'=>utf8_encode($BetweenStreet1),
+		'BetweenStreet2'=>utf8_encode($BetweenStreet2),
 		'OwnHouse'=>$OwnHouse,
-		'Occupation'=>$Occupation,
-		'Enterprise'=>$Enterprise,
-		'Area'=>$Area,
-		'WorkPhone'=>$WorkPhone,
-		'WorkAddress'=>$WorkAddress,
+		'Occupation'=>utf8_encode($Occupation),
+		'Enterprise'=>utf8_encode($Enterprise),
+		'Area'=>utf8_encode($Area),
+		'WorkPhone'=>utf8_encode($WorkPhone),
+		'WorkAddress'=>utf8_encode($WorkAddress),
 		'CivilStatus'=>$CivilStatus,
-		'Spouse'=>$Spouse,
-		'SpousePhone'=>$SpousePhone
+		'Spouse'=>utf8_encode($Spouse),
+		'SpousePhone'=>utf8_encode($SpousePhone),
+		'Folio'=>$Folio
 	);
 
 	$update	=	$db->update('customers', $data, array('Id'=>$editId));
@@ -74,10 +69,6 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 
 			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> Los apellidos son obligatorios</div>';
 
-		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="up"){
-
-			echo	'<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> El telefono del cliente es obligatorio</div>';
-
 		}elseif(isset($_REQUEST['msg']) and $_REQUEST['msg']=="ras"){
 
 			echo	'<div class="alert alert-success"><i class="fa fa-thumbs-up"></i> Registro agregado con exito</div>';
@@ -98,12 +89,12 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label>Nombre (s) <span class="text-danger">*</span></label>
-								<input type="text" name="FirstName" id="FirstName" class="form-control" placeholder="Ingresar nombre (s)" value="<?php echo isset($row[0]['FirstName'])?$row[0]['FirstName']:''; ?>" required>
+								<input type="text" name="FirstName" id="FirstName" class="form-control" placeholder="Ingresar nombre (s)" value="<?php echo isset($row[0]['FirstName'])?utf8_decode($row[0]['FirstName']):''; ?>" required>
 							</div>
 
 							<div class="form-group col-md-3">
 								<label>Apellidos <span class="text-danger">*</span></label>
-								<input type="text" name="LastName" id="LastName" class="form-control" placeholder="Ingresar apellidos" value="<?php echo isset($row[0]['LastName'])?$row[0]['LastName']:''; ?>" required>
+								<input type="text" name="LastName" id="LastName" class="form-control" placeholder="Ingresar apellidos" value="<?php echo isset($row[0]['LastName'])?utf8_decode($row[0]['LastName']):''; ?>" required>
 							</div>
 
 							<div class="form-group col-md-3">
@@ -113,19 +104,19 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 
 							<div class="form-group col-md-3">
 								<label>Direccion <span class="text-danger">*</span></label>
-								<input type="text" class="tel form-control" name="Address" id="Address" placeholder="Ingresar direccion" value="<?php echo isset($row[0]['Address'])?$row[0]['Address']:''; ?>" required>
+								<input type="text" class="tel form-control" name="Address" id="Address" placeholder="Ingresar direccion" value="<?php echo isset($row[0]['Address'])?utf8_decode($row[0]['Address']):''; ?>" required>
 							</div>
 						</div>
 
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label>Entre la calle </label>
-								<input type="text" name="BetweenStreet1" id="BetweenStreet1" class="form-control" placeholder="Ingresar calle" value="<?php echo isset($row[0]['BetweenStreet1'])?$row[0]['BetweenStreet1']:''; ?>">
+								<input type="text" name="BetweenStreet1" id="BetweenStreet1" class="form-control" placeholder="Ingresar calle" value="<?php echo isset($row[0]['BetweenStreet1'])?utf8_decode($row[0]['BetweenStreet1']):''; ?>">
 							</div>
 
 							<div class="form-group col-md-3">
 								<label>Y la calle </label>
-								<input type="text" name="BetweenStreet2" id="BetweenStreet2" class="form-control" placeholder="Ingresar calle" value="<?php echo isset($row[0]['BetweenStreet2'])?$row[0]['BetweenStreet2']:''; ?>">
+								<input type="text" name="BetweenStreet2" id="BetweenStreet2" class="form-control" placeholder="Ingresar calle" value="<?php echo isset($row[0]['BetweenStreet2'])?utf8_decode($row[0]['BetweenStreet2']):''; ?>">
 							</div>
 
 							<div class="form-group col-md-3">
@@ -139,19 +130,19 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 
 							<div class="form-group col-md-3">
 								<label>Ocupacion <span class="text-danger">*</span></label>
-								<input type="text" class="tel form-control" name="Occupation" id="Occupation" placeholder="Ingresar ocpuacion" value="<?php echo isset($row[0]['Occupation'])?$row[0]['Occupation']:''; ?>" required>
+								<input type="text" class="tel form-control" name="Occupation" id="Occupation" placeholder="Ingresar ocpuacion" value="<?php echo isset($row[0]['Occupation'])?utf8_decode($row[0]['Occupation']):''; ?>" required>
 							</div>
 						</div>
 
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label>Empresa <span class="text-danger">*</span></label>
-								<input type="text" name="Enterprise" id="Enterprise" class="form-control" placeholder="Ingresar empresa" value="<?php echo isset($row[0]['Enterprise'])?$row[0]['Enterprise']:''; ?>" required>
+								<input type="text" name="Enterprise" id="Enterprise" class="form-control" placeholder="Ingresar empresa" value="<?php echo isset($row[0]['Enterprise'])?utf8_decode($row[0]['Enterprise']):''; ?>" required>
 							</div>
 
 							<div class="form-group col-md-3">
 								<label>Area </label>
-								<input type="text" name="Area" id="Area" class="form-control" placeholder="Ingresar area" value="<?php echo isset($row[0]['Area'])?$row[0]['Area']:''; ?>">
+								<input type="text" name="Area" id="Area" class="form-control" placeholder="Ingresar area" value="<?php echo isset($row[0]['Area'])?utf8_decode($row[0]['Area']):''; ?>">
 							</div>
 
 							<div class="form-group col-md-3">
@@ -161,7 +152,7 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 
 							<div class="form-group col-md-3">
 								<label>Direccion del trabajo <span class="text-danger">*</span></label>
-								<input type="text" class="tel form-control" name="WorkAddress" id="WorkAddress" placeholder="Ingresar direccion del trabajo" value="<?php echo isset($row[0]['WorkAddress'])?$row[0]['WorkAddress']:''; ?>" required>
+								<input type="text" class="tel form-control" name="WorkAddress" id="WorkAddress" placeholder="Ingresar direccion del trabajo" value="<?php echo isset($row[0]['WorkAddress'])?utf8_decode($row[0]['WorkAddress']):''; ?>" required>
 							</div>
 						</div>
 
@@ -179,12 +170,16 @@ if(isset($_REQUEST['submit']) and $_REQUEST['submit']!="") {
 
 							<div class="form-group col-md-3">
 								<label>Conyuge </label>
-								<input type="text" name="Spouse" id="Spouse" class="form-control" placeholder="Ingresar conyuge" value="<?php echo isset($row[0]['Spouse'])?$row[0]['Spouse']:''; ?>">
+								<input type="text" name="Spouse" id="Spouse" class="form-control" placeholder="Ingresar conyuge" value="<?php echo isset($row[0]['Spouse'])?utf8_decode($row[0]['Spouse']):''; ?>">
 							</div>
 
 							<div class="form-group col-md-3">
 								<label>Telefono de conyuge </label>
 								<input type="tel" class="tel form-control" name="SpousePhone" id="SpousePhone" x-autocompletetype="tel" placeholder="Ingresar telefono de conyuge" value="<?php echo isset($row[0]['SpousePhone'])?$row[0]['SpousePhone']:''; ?>">
+							</div>
+							<div class="form-group col-md-3">
+								<label>Folio </label>
+								<input type="tel" class="tel form-control" name="Folio" id="Folio" x-autocompletetype="tel" placeholder="Ingresar folio" value="<?php echo isset($row[0]['Folio'])?$row[0]['Folio']:''; ?>" required>
 							</div>
 						</div>
 						<input type="hidden" name="editId" id="editId" value="<?php echo isset($_REQUEST['editId'])?$_REQUEST['editId']:''?>">
